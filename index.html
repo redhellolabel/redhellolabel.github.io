@@ -1,4 +1,231 @@
-<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"name=viewport><title>Red Hello Label</title><style>body{margin:0;padding:0;background-color:#fff;font-family:Arial,sans-serif;min-height:100vh}.wrapper{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}.sticker-box{width:100%;max-width:360px;min-width:280px;height:216px;box-sizing:border-box;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;background:#fff;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,.2),inset 0 0 0 2px #fff;overflow:hidden;margin:0 auto}@media (min-width:600px){.sticker-box{aspect-ratio:5/3;height:auto}}.top-bottom-border{position:absolute;top:0;left:0;width:100%;height:30%;background-color:#e60012;z-index:0;display:flex;align-items:center;justify-content:center}.bottom-border{position:absolute;bottom:0;left:0;width:100%;height:8%;background-color:#e60012;z-index:0}.top-text{color:#fff;font-size:28px;font-weight:700;text-align:center;text-transform:uppercase;z-index:1}.hello-text{position:relative;top:5px;display:inline-block}.sub-text{font-size:40%;display:inline-block;line-height:1;position:relative;top:-8px}#typeHereIndicator{margin-top:32%;margin-bottom:4px;color:#888;font-size:28px;letter-spacing:1px;font-family:Arial,sans-serif;z-index:2;pointer-events:none;user-select:none;display:block}.sticker-input{position:absolute;top:28%;bottom:8%;width:90%;left:5%;right:5%;border:none;background:0 0;color:#000;font-family:Arial,sans-serif;font-size:clamp(32px,10vw,50px);font-weight:700;text-align:center;outline:0;z-index:2;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;justify-content:center}.sticker-input:focus{caret-color:#000}.sticker-input::placeholder{color:rgba(0,0,0,.4);font-size:16px;text-align:center}#inputOverlay{position:absolute;top:28%;bottom:8%;width:90%;left:5%;right:5%;color:#000;font-family:Arial,sans-serif;font-size:clamp(32px,10vw,50px);font-weight:700;text-align:center;text-transform:uppercase;display:none;align-items:center;justify-content:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:0 0;z-index:2}button{margin-top:20px;padding:10px 20px;font-size:16px;cursor:pointer;touch-action:manipulation;background-color:#e60012;color:#fff;border:none;border-radius:5px}@media (min-width:600px){#inputOverlay,.sticker-input{font-size:8vh}}#mobileBlocker{display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,.98);color:#e60012;font-size:2rem;font-family:Arial,sans-serif;font-weight:700;text-align:center;justify-content:center;align-items:center;flex-direction:column;padding:40px 20px}#mobileBlocker.active{display:flex}</style><script src=https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js></script><div id=mobileBlocker>designed for desktop</div><div class=wrapper id=mainContent><div class=sticker-box id=sticker><div class=top-bottom-border><div class=top-text><span class=hello-text>HELLO</span><br><span class=sub-text>MY NAME IS</span></div></div><div class=bottom-border></div><div id=typeHereIndicator>TYPE HERE</div><input autocapitalize=characters autocomplete=off autocorrect=off class=sticker-input id=textInput inputmode=text maxlength=7 placeholder=""><div id=inputOverlay></div></div><button id=downloadBtn>download</button></div><script>function isMobile() {
+<!doctypehtml>
+  <html lang=en>
+  <meta charset=UTF-8>
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name=viewport>
+  <title>Red Hello Label</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh
+    }
+
+    .wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center
+    }
+
+    .sticker-box {
+      width: 100%;
+      max-width: 360px;
+      min-width: 280px;
+      height: 216px;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .2), inset 0 0 0 2px #fff;
+      overflow: hidden;
+      margin: 0 auto
+    }
+
+    @media (min-width:600px) {
+      .sticker-box {
+        aspect-ratio: 5/3;
+        height: auto
+      }
+    }
+
+    .top-bottom-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30%;
+      background-color: #e60012;
+      z-index: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .bottom-border {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 8%;
+      background-color: #e60012;
+      z-index: 0
+    }
+
+    .top-text {
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      z-index: 1
+    }
+
+    .hello-text {
+      position: relative;
+      top: 5px;
+      display: inline-block
+    }
+
+    .sub-text {
+      font-size: 40%;
+      display: inline-block;
+      line-height: 1;
+      position: relative;
+      top: -8px
+    }
+
+    #typeHereIndicator {
+      margin-top: 32%;
+      margin-bottom: 4px;
+      color: #888;
+      font-size: 28px;
+      letter-spacing: 1px;
+      font-family: Arial, sans-serif;
+      z-index: 2;
+      pointer-events: none;
+      user-select: none;
+      display: block
+    }
+
+    .sticker-input {
+      position: absolute;
+      top: 28%;
+      bottom: 8%;
+      width: 90%;
+      left: 5%;
+      right: 5%;
+      border: none;
+      background: 0 0;
+      color: #000;
+      font-family: Arial, sans-serif;
+      font-size: clamp(32px, 10vw, 50px);
+      font-weight: 700;
+      text-align: center;
+      outline: 0;
+      z-index: 2;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .sticker-input:focus {
+      caret-color: #000
+    }
+
+    .sticker-input::placeholder {
+      color: rgba(0, 0, 0, .4);
+      font-size: 16px;
+      text-align: center
+    }
+
+    #inputOverlay {
+      position: absolute;
+      top: 28%;
+      bottom: 8%;
+      width: 90%;
+      left: 5%;
+      right: 5%;
+      color: #000;
+      font-family: Arial, sans-serif;
+      font-size: clamp(32px, 10vw, 50px);
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: 0 0;
+      z-index: 2
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      touch-action: manipulation;
+      background-color: #e60012;
+      color: #fff;
+      border: none;
+      border-radius: 5px
+    }
+
+    @media (min-width:600px) {
+
+      #inputOverlay,
+      .sticker-input {
+        font-size: 8vh
+      }
+    }
+
+    #mobileBlocker {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 10%;
+      /* Moved up */
+      left: 50%;
+      /* Center horizontally */
+      transform: translateX(-50%);
+      /* Center horizontally */
+      width: 90vw;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.98);
+      color: #e60012;
+      font-size: 2rem;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      border-radius: 10px;
+    }
+
+    #mobileBlocker.active {
+      display: flex
+    }
+  </style>
+  <script src=https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js></script>
+  <div id=mobileBlocker>Available for<br>desktop only</div>
+  <div class=wrapper id=mainContent>
+    <div class=sticker-box id=sticker>
+      <div class=top-bottom-border>
+        <div class=top-text><span class=hello-text>HELLO</span><br><span class=sub-text>MY NAME IS</span></div>
+      </div>
+      <div class=bottom-border></div>
+      <div id=typeHereIndicator>TYPE HERE</div><input autocapitalize=characters autocomplete=off autocorrect=off class=sticker-input id=textInput inputmode=text maxlength=7 placeholder="">
+      <div id=inputOverlay></div>
+    </div><button id=downloadBtn>download</button>
+  </div>
+  <script>
+    function isMobile() {
       const ua = navigator.userAgent || navigator.vendor || window.opera;
       if (/android|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(ua)) return true;
       if (window.innerWidth < 700) return true;
@@ -18,11 +245,9 @@
         document.body.style.overflow = '';
       }
     }
-
     window.addEventListener('DOMContentLoaded', updateMobileBlock);
     window.addEventListener('resize', updateMobileBlock);
     window.addEventListener('orientationchange', updateMobileBlock);
-
     // --- rest of your original script ---
     const textInput = document.getElementById("textInput");
     const inputOverlay = document.getElementById("inputOverlay");
@@ -39,7 +264,6 @@
         typeHereIndicator.style.display = "block";
       }
     }
-
     textInput.addEventListener("input", () => {
       const cursorPos = textInput.selectionStart;
       textInput.value = textInput.value.toUpperCase();
@@ -47,12 +271,10 @@
       updateOverlay();
       updateTypeHereIndicator();
     });
-
     window.addEventListener("DOMContentLoaded", () => {
       updateOverlay();
       updateTypeHereIndicator();
     });
-
     textInput.addEventListener("focus", () => {
       setTimeout(() => {
         textInput.scrollIntoView({
@@ -61,13 +283,11 @@
         });
       }, 300);
     });
-
     document.getElementById("downloadBtn").addEventListener("click", () => {
       inputOverlay.style.display = "flex";
       textInput.style.visibility = "hidden";
       typeHereIndicator.style.visibility = "hidden";
       updateOverlay();
-
       html2canvas(document.getElementById("sticker"), {
         useCORS: true,
         scrollX: 0,
@@ -77,10 +297,10 @@
         inputOverlay.style.display = "none";
         textInput.style.visibility = "visible";
         typeHereIndicator.style.visibility = "visible";
-
         const link = document.createElement("a");
         link.download = "Red-Hello-Label.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
       });
-    });</script>
+    });
+  </script>
