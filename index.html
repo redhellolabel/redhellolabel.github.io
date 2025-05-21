@@ -1,124 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
+  <!-- Prevent iOS zoom on input focus -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Red Hello Label</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: white;
+      background-color: white;
       font-family: Arial, sans-serif;
       min-height: 100vh;
     }
+
     .wrapper {
       min-height: 100vh;
-      display: block;
-      padding: 32px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
+
     .sticker-box {
-      width: 240px;
-      height: 144px;
+      width: 100%;
+      max-width: 360px;
+      min-width: 280px;
+      height: 216px;
       box-sizing: border-box;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
       background: white;
-      border-radius: 0;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 0 0 2px #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 0 0 2px #fff;
       overflow: hidden;
-      margin-left: 0; /* FLUSH LEFT */
+      margin: 0 auto;
     }
+
+    @media (min-width: 600px) {
+      .sticker-box {
+        aspect-ratio: 5 / 3;
+        height: auto;
+      }
+    }
+
     .top-bottom-border {
       position: absolute;
-      top: 0; left: 0;
-      width: 240px; height: 43px; /* 30% of 144px */
-      background: #e60012;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30%;
+      background-color: #e60012;
       z-index: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .bottom-border {
       position: absolute;
-      bottom: 0; left: 0;
-      width: 240px; height: 12px; /* 8% of 144px */
-      background: #e60012;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 8%;
+      background-color: #e60012;
       z-index: 0;
     }
+
     .top-text {
       color: white;
-      font-size: 18px;
+      font-size: 28px;
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
       z-index: 1;
     }
+
     .hello-text {
       position: relative;
-      top: 3px;
+      top: 5px;
       display: inline-block;
     }
+
     .sub-text {
       font-size: 40%;
       display: inline-block;
       line-height: 1;
       position: relative;
-      top: -5px;
+      top: -8px;
     }
+
     #typeHereIndicator {
-      position: absolute;
-      left: 0; width: 240px; height: 100%;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      margin-top: 32%;
+      margin-bottom: 4px;
       color: #888;
-      font-size: 18px;
+      font-size: 28px;
       letter-spacing: 1px;
       font-family: Arial, sans-serif;
       z-index: 2;
       pointer-events: none;
       user-select: none;
-      text-align: center;
-      padding-bottom: 28px;
-      top: 0;
+      display: block;
     }
+
     .sticker-input {
       position: absolute;
-      top: 64px; /* PIXEL VALUE, not percent */
-      left: 12px;
-      width: 216px;
+      top: 28%;
+      bottom: 8%;
+      width: 90%;
+      left: 5%;
+      right: 5%;
       border: none;
       background: none;
       color: black;
       font-family: Arial, sans-serif;
-      font-size: 24px;
+      font-size: 32px; /* Fixed font size for perfect match */
       font-weight: bold;
+      text-align: center;
       outline: none;
       z-index: 2;
       text-transform: uppercase;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-align: center;
-      -webkit-text-align: center;
-      direction: ltr;
-      margin: 0 auto;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .sticker-input:focus { caret-color: black; }
+
+    .sticker-input:focus {
+      caret-color: black;
+    }
+
     .sticker-input::placeholder {
-      color: rgba(0,0,0,0.4);
-      font-size: 14px;
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 16px;
       text-align: center;
     }
+
+    /* Overlay for screenshot */
     #inputOverlay {
       position: absolute;
-      top: 64px; /* Match input */
-      left: 12px;
-      width: 216px;
+      top: 28%;
+      bottom: 8%;
+      width: 90%;
+      left: 5%;
+      right: 5%;
       color: black;
       font-family: Arial, sans-serif;
-      font-size: 24px;
+      font-size: 32px; /* Match the input font size exactly */
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
@@ -132,25 +166,18 @@
       background: none;
       z-index: 2;
     }
-    .button-row {
-      width: 240px;
-      margin-left: 0;
-      display: flex;
-      justify-content: center;
-      margin-top: 24px;
-    }
+
     button {
+      margin-top: 20px;
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       touch-action: manipulation;
-      display: block;
-      text-align: center;
-      margin: 0;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="sticker-box" id="sticker">
@@ -161,29 +188,33 @@
         </div>
       </div>
       <div class="bottom-border"></div>
+      <!-- Type here indicator -->
       <div id="typeHereIndicator">TYPE HERE</div>
-      <input class="sticker-input" id="textInput" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" maxlength="7" placeholder="" />
+      <input class="sticker-input" id="textInput" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" maxlength="12" placeholder="" />
       <div id="inputOverlay"></div>
     </div>
-    <div class="button-row">
-      <button id="downloadBtn">Download</button>
-    </div>
+
+    <button id="downloadBtn">Download</button>
   </div>
   <script>
     const textInput = document.getElementById("textInput");
     const inputOverlay = document.getElementById("inputOverlay");
     const typeHereIndicator = document.getElementById("typeHereIndicator");
 
+    // Update overlay to match input
     function updateOverlay() {
       inputOverlay.textContent = textInput.value;
     }
+
+    // Hide/show "TYPE HERE" indicator instantly
     function updateTypeHereIndicator() {
       if (textInput.value.length > 0) {
         typeHereIndicator.style.display = "none";
       } else {
-        typeHereIndicator.style.display = "flex";
+        typeHereIndicator.style.display = "block";
       }
     }
+
     textInput.addEventListener("input", () => {
       const cursorPos = textInput.selectionStart;
       textInput.value = textInput.value.toUpperCase();
@@ -191,32 +222,41 @@
       updateOverlay();
       updateTypeHereIndicator();
     });
+
+    // On page load, update overlay and indicator
     window.addEventListener("DOMContentLoaded", () => {
       updateOverlay();
       updateTypeHereIndicator();
     });
+
     textInput.addEventListener("focus", () => {
       setTimeout(() => {
-        textInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        textInput.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
       }, 300);
     });
+
     document.getElementById("downloadBtn").addEventListener("click", () => {
+      // Prepare overlay
       inputOverlay.style.display = "flex";
       textInput.style.visibility = "hidden";
       typeHereIndicator.style.visibility = "hidden";
       updateOverlay();
-      const originalOverflow = document.documentElement.style.overflow;
-      document.documentElement.style.overflow = 'hidden';
+
       html2canvas(document.getElementById("sticker"), {
         useCORS: true,
         scrollX: 0,
         scrollY: 0,
         backgroundColor: null
       }).then(canvas => {
+        // Restore UI
         inputOverlay.style.display = "none";
         textInput.style.visibility = "visible";
         typeHereIndicator.style.visibility = "visible";
-        document.documentElement.style.overflow = originalOverflow;
+
+        // Download
         const link = document.createElement("a");
         link.download = "Red-Hello-Label.png";
         link.href = canvas.toDataURL("image/png");
