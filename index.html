@@ -33,7 +33,7 @@
       align-items: center;
       justify-content: flex-start;
       background: white;
-      border-radius: 8px;
+      border-radius: 0; /* No rounded corners */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 0 0 2px #fff;
       overflow: hidden;
     }
@@ -245,15 +245,15 @@
     });
 
     document.getElementById("downloadBtn").addEventListener("click", () => {
-      // Hide scrollbars for screenshot
-      const originalOverflow = document.documentElement.style.overflow;
-      document.documentElement.style.overflow = 'hidden';
-
       // Prepare overlay
       inputOverlay.style.display = "flex";
       textInput.style.visibility = "hidden";
       typeHereIndicator.style.visibility = "hidden";
       updateOverlay();
+
+      // Hide scrollbars for screenshot
+      const originalOverflow = document.documentElement.style.overflow;
+      document.documentElement.style.overflow = 'hidden';
 
       html2canvas(document.getElementById("sticker"), {
         useCORS: true,
@@ -267,10 +267,20 @@
         typeHereIndicator.style.visibility = "visible";
         document.documentElement.style.overflow = originalOverflow;
 
-        // Download
+        // --- Crop the canvas to remove the white gap on the right ---
+        // Adjust cropWidth if needed (try 7 or 8 if 8px is too much/little)
+        const cropWidth = canvas.width - 8;
+        const cropHeight = canvas.height;
+        const croppedCanvas = document.createElement('canvas');
+        croppedCanvas.width = cropWidth;
+        croppedCanvas.height = cropHeight;
+        const ctx = croppedCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, 0, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+
+        // Download cropped image
         const link = document.createElement("a");
         link.download = "Red-Hello-Label.png";
-        link.href = canvas.toDataURL("image/png");
+        link.href = croppedCanvas.toDataURL("image/png");
         link.click();
       });
     });
