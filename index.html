@@ -12,17 +12,23 @@
       padding: 0;
       background-color: white;
       font-family: Arial, sans-serif;
+      min-height: 100vh;
+      /* Remove flex here */
+    }
+
+    .wrapper {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
     }
 
     .sticker-box {
-      width: 90vw;
+      width: 100%;
       max-width: 360px;
-      aspect-ratio: 5 / 3;
+      min-width: 280px;
+      height: 216px; /* 5:3 ratio for 360px width */
       box-sizing: border-box;
       position: relative;
       display: flex;
@@ -33,6 +39,15 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 0 0 2px #fff;
       overflow: hidden;
+      margin: 0 auto;
+    }
+
+    /* Only use aspect-ratio for larger screens */
+    @media (min-width: 600px) {
+      .sticker-box {
+        aspect-ratio: 5 / 3;
+        height: auto;
+      }
     }
 
     .top-bottom-border {
@@ -117,6 +132,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      /* Prevent iOS zoom */
+      font-size: 20px;
     }
 
     .sticker-input:focus {
@@ -173,23 +190,23 @@
 </head>
 
 <body>
-
-  <div class="sticker-box" id="sticker">
-    <div class="top-bottom-border">
-      <div class="top-text">
-        <span class="hello-text">HELLO</span><br>
-        <span class="sub-text">MY NAME IS</span>
+  <div class="wrapper">
+    <div class="sticker-box" id="sticker">
+      <div class="top-bottom-border">
+        <div class="top-text">
+          <span class="hello-text">HELLO</span><br>
+          <span class="sub-text">MY NAME IS</span>
+        </div>
       </div>
+      <div class="bottom-border"></div>
+      <!-- Type here indicator -->
+      <div id="typeHereIndicator">TYPE HERE</div>
+      <input class="sticker-input" id="textInput" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" maxlength="7" placeholder="" />
+      <div id="inputOverlay"></div>
     </div>
-    <div class="bottom-border"></div>
-    <!-- Type here indicator -->
-    <div id="typeHereIndicator">TYPE HERE</div>
-    <input class="sticker-input" id="textInput" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" maxlength="7" placeholder="" />
-    <div id="inputOverlay"></div>
+
+    <button id="downloadBtn">Download</button>
   </div>
-
-  <button id="downloadBtn">Download</button>
-
   <script>
     const textInput = document.getElementById("textInput");
     const inputOverlay = document.getElementById("inputOverlay");
@@ -258,7 +275,6 @@
       });
     });
   </script>
-
 </body>
 
 </html>
