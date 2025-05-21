@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=360, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Red Hello Label</title>
+  <title>Red Hello My Name Is Label</title>
   <style>
     html, body {
       margin: 0;
@@ -102,6 +102,7 @@
       overflow: hidden;
       box-sizing: border-box;
       line-height: 1;
+      position: relative; /* Ensure correct positioning */
     }
 
     .name-input {
@@ -133,6 +134,12 @@
       user-select: none;
       z-index: 4;
       background: none;
+      font-size: 60px;
+      font-weight: bold;
+      color: #111;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     .button-row {
@@ -221,7 +228,7 @@
     nameInput.addEventListener("input", () => {
       const start = nameInput.selectionStart;
       const end = nameInput.selectionEnd;
-      nameInput.value = nameInput.value.toUpperCase().slice(0, 7);
+      nameInput.value = nameInput.value.toUpperCase().slice(0, 9);
       nameInput.setSelectionRange(start, end);
       updateOverlay();
     });
