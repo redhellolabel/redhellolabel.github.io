@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8" />
-  <!-- Prevent iOS zoom on input focus -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Red Hello Label</title>
   <style>
@@ -17,33 +16,20 @@
 
     .wrapper {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      display: block;
+      padding: 32px 0 0 0;
     }
 
     .sticker-box {
-      width: 360px;      /* Fixed width for screenshot accuracy */
-      height: 216px;     /* 5:3 aspect ratio for 360px width */
+      width: 360px;
+      height: 216px;
       box-sizing: border-box;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       background: white;
-      border-radius: 0; /* No rounded corners */
+      border-radius: 0;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 0 0 2px #fff;
       overflow: hidden;
-    }
-
-    /* Only use aspect-ratio for larger screens */
-    @media (min-width: 600px) {
-      .sticker-box {
-        aspect-ratio: 5 / 3;
-        height: auto;
-      }
+      margin-left: 16px;
     }
 
     .top-bottom-border {
@@ -109,7 +95,7 @@
       position: absolute;
       top: 28%;
       left: 16px;
-      width: 328px; /* 360px - 16px*2 */
+      width: 328px;
       border: none;
       background: none;
       color: black;
@@ -122,12 +108,9 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
-      /* Center text with iOS-specific fix */
       text-align: center;
       -webkit-text-align: center;
       direction: ltr;
-
       margin: 0 auto;
       display: block;
     }
@@ -142,7 +125,6 @@
       text-align: center;
     }
 
-    /* Overlay for screenshot */
     #inputOverlay {
       position: absolute;
       top: 28%;
@@ -154,7 +136,7 @@
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
-      display: none; /* Only visible during screenshot */
+      display: none;
       align-items: center;
       justify-content: center;
       pointer-events: none;
@@ -165,19 +147,21 @@
       z-index: 2;
     }
 
+    .button-row {
+      width: 360px;           /* Match the sticker-box width */
+      margin-left: 16px;      /* Same as sticker-box margin-left */
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+    }
     button {
-      margin-top: 20px;
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       touch-action: manipulation;
-    }
-
-    @media (min-width: 600px) {
-      .sticker-input,
-      #inputOverlay {
-        font-size: 8vh;
-      }
+      display: block;
+      text-align: center;
+      margin: 0;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -193,25 +177,23 @@
         </div>
       </div>
       <div class="bottom-border"></div>
-      <!-- Type here indicator -->
       <div id="typeHereIndicator">TYPE HERE</div>
       <input class="sticker-input" id="textInput" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" maxlength="7" placeholder="" />
       <div id="inputOverlay"></div>
     </div>
-
-    <button id="downloadBtn">Download</button>
+    <div class="button-row">
+      <button id="downloadBtn">Download</button>
+    </div>
   </div>
   <script>
     const textInput = document.getElementById("textInput");
     const inputOverlay = document.getElementById("inputOverlay");
     const typeHereIndicator = document.getElementById("typeHereIndicator");
 
-    // Update overlay to match input
     function updateOverlay() {
       inputOverlay.textContent = textInput.value;
     }
 
-    // Hide/show "TYPE HERE" indicator instantly
     function updateTypeHereIndicator() {
       if (textInput.value.length > 0) {
         typeHereIndicator.style.display = "none";
@@ -228,7 +210,6 @@
       updateTypeHereIndicator();
     });
 
-    // On page load, update overlay and indicator
     window.addEventListener("DOMContentLoaded", () => {
       updateOverlay();
       updateTypeHereIndicator();
@@ -244,13 +225,11 @@
     });
 
     document.getElementById("downloadBtn").addEventListener("click", () => {
-      // Prepare overlay
       inputOverlay.style.display = "flex";
       textInput.style.visibility = "hidden";
       typeHereIndicator.style.visibility = "hidden";
       updateOverlay();
 
-      // Hide scrollbars for screenshot
       const originalOverflow = document.documentElement.style.overflow;
       document.documentElement.style.overflow = 'hidden';
 
@@ -260,26 +239,14 @@
         scrollY: 0,
         backgroundColor: null
       }).then(canvas => {
-        // Restore UI and scrollbars
         inputOverlay.style.display = "none";
         textInput.style.visibility = "visible";
         typeHereIndicator.style.visibility = "visible";
         document.documentElement.style.overflow = originalOverflow;
 
-        // --- Crop the canvas to remove the white gap on the right ---
-        // Adjust cropWidth if needed (try 7 or 8 if 8px is too much/little)
-        const cropWidth = canvas.width - 8;
-        const cropHeight = canvas.height;
-        const croppedCanvas = document.createElement('canvas');
-        croppedCanvas.width = cropWidth;
-        croppedCanvas.height = cropHeight;
-        const ctx = croppedCanvas.getContext('2d');
-        ctx.drawImage(canvas, 0, 0, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
-
-        // Download cropped image
         const link = document.createElement("a");
         link.download = "Red-Hello-Label.png";
-        link.href = croppedCanvas.toDataURL("image/png");
+        link.href = canvas.toDataURL("image/png");
         link.click();
       });
     });
