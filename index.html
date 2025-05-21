@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=360, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Red Hello My Name Is Label</title>
+  <title>Red Hello Label</title>
   <style>
     html, body {
       margin: 0;
@@ -32,7 +32,7 @@
       position: relative;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 0 0 2px #fff;
       overflow: hidden;
-      transform: translateZ(0); /* iOS GPU fix */
+      transform: translateZ(0);
     }
 
     .red-band-top, .red-band-bottom {
@@ -87,7 +87,7 @@
       z-index: 2;
     }
 
-    .name-input, #inputOverlay {
+    .name-input {
       width: 320px;
       max-width: 320px;
       font-size: 60px;
@@ -100,16 +100,12 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      box-sizing: border-box;
-      line-height: 1;
-      position: relative; /* Ensure correct positioning */
-    }
-
-    .name-input {
       border: none;
       outline: none;
       background: none;
       z-index: 3;
+      line-height: 1;
+      box-sizing: border-box;
     }
 
     .name-input:focus {
@@ -123,23 +119,29 @@
     }
 
     #inputOverlay {
+      display: none;
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
       height: 170px;
-      display: none;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
-      user-select: none;
-      z-index: 4;
-      background: none;
       font-size: 60px;
       font-weight: bold;
       color: #111;
+      font-family: Arial, sans-serif;
       text-align: center;
       text-transform: uppercase;
       letter-spacing: 2px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      z-index: 4;
+      background: none;
+      pointer-events: none;
+      user-select: none;
+      display: flex;
     }
 
     .button-row {
@@ -209,7 +211,7 @@
           autocorrect="off"
           spellcheck="false"
         />
-        <div id="inputOverlay"></div>
+        <span id="inputOverlay"></span>
       </div>
     </div>
     <div class="button-row">
@@ -228,7 +230,7 @@
     nameInput.addEventListener("input", () => {
       const start = nameInput.selectionStart;
       const end = nameInput.selectionEnd;
-      nameInput.value = nameInput.value.toUpperCase().slice(0, 9);
+      nameInput.value = nameInput.value.toUpperCase().slice(0, 7);
       nameInput.setSelectionRange(start, end);
       updateOverlay();
     });
@@ -244,21 +246,22 @@
     document.getElementById("downloadBtn").addEventListener("click", () => {
       inputOverlay.style.display = "flex";
       nameInput.style.visibility = "hidden";
-
       updateOverlay();
 
-      html2canvas(document.getElementById("sticker"), {
-        useCORS: true,
-        backgroundColor: null,
-        scale: 2 // crisper and more accurate on iOS
-      }).then(canvas => {
-        inputOverlay.style.display = "none";
-        nameInput.style.visibility = "visible";
+      document.fonts.ready.then(() => {
+        html2canvas(document.getElementById("sticker"), {
+          useCORS: true,
+          backgroundColor: null,
+          scale: 2
+        }).then(canvas => {
+          inputOverlay.style.display = "none";
+          nameInput.style.visibility = "visible";
 
-        const link = document.createElement("a");
-        link.download = "Red-Hello-Label.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+          const link = document.createElement("a");
+          link.download = "Red-Hello-Label.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        });
       });
     });
   </script>
